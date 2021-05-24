@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const morgan = require("morgan");
 const exphbs = require("express-handlebars");
+const path = require("path");
 
 //Load Config File
 dotenv.config({ path: "./config/config.env" });
@@ -20,6 +21,9 @@ if (process.env.NODE_ENV === "development") {
 //Handlebars
 app.engine(".hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", ".hbs");
+
+//Setting Static Folder
+app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/", require("./routes/index"));
