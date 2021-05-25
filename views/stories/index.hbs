@@ -5,7 +5,11 @@
     <div class="col s12 m4">
       <div class="card">
         <div class="card-image">
+            {{!-- when we are not in loop word 'user' stand for logged in user bcz we declare it in app.js --}}
+            {{!-- But in loop we have to write ../user to tell template to come one step out of loop and then variable user --}}
+            {{!-- If you want to parse html in handle bars we have to use  tripple brackets('{}') --}}
           {{! todo edit icon }}
+          {{{editIcon user ../user _id}}}
         </div>
         <div class="card-content center-align">
           <h5>{{title}}</h5>
