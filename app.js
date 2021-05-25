@@ -20,13 +20,28 @@ connectDB();
 
 const app = express();
 
+//Body Parses
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 //connecting morgan to our app
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+//Register Helper function for handlebars
+const { formatDate } = require("./helpers/hbs");
 //Handlebars
-app.engine(".hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
+app.engine(
+  ".hbs",
+  exphbs({
+    helpers: {
+      formatDate,
+    },
+    defaultLayout: "main",
+    extname: ".hbs",
+  })
+);
 app.set("view engine", ".hbs");
 
 //Sessions Middleware
@@ -49,6 +64,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
+app.use("/stories", require("./routes/stories"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(
