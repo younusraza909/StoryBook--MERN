@@ -30,13 +30,15 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //Register Helper function for handlebars
-const { formatDate } = require("./helpers/hbs");
+const { formatDate, truncate, stripTags } = require("./helpers/hbs");
 //Handlebars
 app.engine(
   ".hbs",
   exphbs({
     helpers: {
       formatDate,
+      truncate,
+      stripTags,
     },
     defaultLayout: "main",
     extname: ".hbs",
