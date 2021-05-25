@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 //Load Config File
 dotenv.config({ path: "./config/config.env" });
@@ -53,6 +54,17 @@ app.engine(
   })
 );
 app.set("view engine", ".hbs");
+//Method Override Middleware
+app.use(
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      // look in urlencoded POST bodies and delete it
+      let method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  })
+);
 
 //Sessions Middleware
 app.use(
