@@ -30,7 +30,13 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //Register Helper function for handlebars
-const { editIcon, formatDate, truncate, stripTags } = require("./helpers/hbs");
+const {
+  select,
+  editIcon,
+  formatDate,
+  truncate,
+  stripTags,
+} = require("./helpers/hbs");
 //Handlebars
 app.engine(
   ".hbs",
@@ -40,6 +46,7 @@ app.engine(
       truncate,
       stripTags,
       editIcon,
+      select,
     },
     defaultLayout: "main",
     extname: ".hbs",
